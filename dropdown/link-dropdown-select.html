@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
+	<script data-main="requirejs-config" src="https://cdn.bootcss.com/require.js/2.3.5/require.min.js"></script>
+	<title>Dropdown-select</title>
+	<style type="text/css">
+		.dropdown-pannel{
+			text-align:left;
+			z-index:999;
+			position:absolute;
+			background:#fff;
+			padding:10px;
+			border: 1px solid #ccc;
+			box-shadow: 0px 0px 5px;
+			border-radius: 5px;
+
+		}
+		.dropdown-pannel div{
+			padding-top:5px;
+			border-top:1px solid #eee;
+		}
+		.dropdown-pannel ul{
+			list-style:none;
+			padding-left:0px;
+		}
+		.dropdown-pannel ul li{
+			cursor:default;
+			margin:0px;
+			padding:5px 10px;
+
+		}
+		.dropdown-pannel ul li:hover{
+			background:#eee;
+
+		}
+		.dropdown-pannel ul li span.remove{
+			float:right;margin-top:5px;
+		}
+		ul li span.text{
+			cursor:pointer;
+		}
+		.dropdown-pannel span.tool-btn{
+			padding:5px;
+			margin:5px;
+			cursor:pointer;
+		}
+		.dropdown-pannel span.tool-btn:hover{
+			background:#eee;
+		}
+	</style>
+</head>
+<body>
+<div id="div" style="width:100%;text-align:center;">
+<span id="dropdown-select" style="display:inline-block;width:400px;padding:10px;border:1px solid #ccc;">Select</span>
+</div>
+</body>
+<script language="javascript">
+	require(['js/link-dropdown-select.js'],function(selector){
+			
+		var elem = selector.create({
+			"selector":"#dropdown-select",
+			"linkLabel" : "click me",
+			"data" :[ 
+				{"id" : "10032","label" : "Javascript","link" : "http://www.haiwera.xyz","addition":{}},
+				{"id" : "10033","label" : "Haiwera","link" : "http://www.haiwera.xyz","addition":{}},
+				{"id" : "10034","label" : "Blog","link" : "http://www.haiwera.xyz","addition":{}},
+			],
+			onclear : function(){
+				console.log('clear');
+			},
+			oninit : function(ctrl){
+				console.log('init');
+			},
+			onupdate : function(data){
+				console.log('update');
+				console.log(data);
+				console.log('---------');
+			},
+			tools : {
+				"Add Item" : function(evt,ctrl){
+					console.log(ctrl);
+					var ind = elem.addItem(Math.random().toString().substr(2,6), "http://haiwera.xyz");
+					console.log(ind);
+					elem.update();
+					evt.stopPropagation();
+				},
+				"Hello" : function(evt,ctrl){
+					console.log("hello");
+					evt.stopPropagation();
+				}
+			}
+		});
+
+		elem.addItem("My No Link Label");
+		elem.addItem("My Link Label","http://haiwera.xyz");
+
+		elem.onSelect(function(evt,value){
+			console.log(value);		
+		});
+		
+	});
+</script>
+</html>
